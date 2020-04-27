@@ -2,6 +2,7 @@ import csv
 import os
 import re
 
+
 class DataIngestor():
 
     def __init__(self, dir):
@@ -21,16 +22,19 @@ class DataIngestor():
             
             return 1
 
-    def data_cleaner(self, row):
+    @staticmethod
+    def data_cleaner(row):
         text = row[1]
         # change everything to small case
         text = text.lower()
         # TODO: Remove special characters; ex: @
+        # just add the special characters after @ in the line below that need to be removed
+        # I am replacing the characters with ' ', can use '' as well but that might change some words
+        text = re.sub(r'[@]', ' ', text)
 
         return text
             
 
-
-if __name__=='__main__':
+if __name__ == '__main__':
     di = DataIngestor(dir="assets/tweet-sentiment-extraction/train.csv")
     print()
